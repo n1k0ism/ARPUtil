@@ -30,13 +30,13 @@
 
 ArpUtil arputil;
 
-uint8_t ArpUtil::L2_TYPE_ARP[2]  = { 0x08, 0x06 };
-uint8_t ArpUtil::ARP_HW_ETHER[2]  = { 0x00, 0x01 };
-uint8_t ArpUtil::ARP_PROTO_IPV4[2]  = { 0x08, 0x00 };
-uint8_t ArpUtil::ARP_REQUEST[2] = { 0x00, 0x01 };
-uint8_t ArpUtil::ARP_REPLY[2] = { 0x00, 0x02 };
+uint8_t ArpUtil::L2_TYPE_ARP[SIZE_WORD]  = { 0x08, 0x06 };
+uint8_t ArpUtil::ARP_HW_ETHER[SIZE_WORD]  = { 0x00, 0x01 };
+uint8_t ArpUtil::ARP_PROTO_IPV4[SIZE_WORD]  = { 0x08, 0x00 };
+uint8_t ArpUtil::ARP_REQUEST[SIZE_WORD] = { 0x00, 0x01 };
+uint8_t ArpUtil::ARP_REPLY[SIZE_WORD] = { 0x00, 0x02 };
 
-uint8_t Ethernet::buffer[400];
+uint8_t Ethernet::buffer[SIZE_ETH_BUF];
 
 void ArpUtil::initPacket() {
 	// these initial values can be changed any time by using
@@ -48,9 +48,9 @@ void ArpUtil::initPacket() {
 	set_OpCode(ARP_REQUEST);
 
 	// hardware and protocol settings (do not change)
-	memcpy(packet.data.l2.type, L2_TYPE_ARP, 2);
-	memcpy(packet.data.arp.typeHw, ARP_HW_ETHER, 2);
-	memcpy(packet.data.arp.typeProto, ARP_PROTO_IPV4, 2);
+	memcpy(packet.data.l2.type, L2_TYPE_ARP, SIZE_WORD);
+	memcpy(packet.data.arp.typeHw, ARP_HW_ETHER, SIZE_WORD);
+	memcpy(packet.data.arp.typeProto, ARP_PROTO_IPV4, SIZE_WORD);
 	packet.data.arp.sizeHw = SIZE_ETHER;
 	packet.data.arp.sizeProto = SIZE_IPV4;
 }
@@ -98,7 +98,7 @@ void ArpUtil::setIp(const uint8_t* ip, uint8_t* field) {
 }
 
 void ArpUtil::begin(const char* devMac) {
-	memcpy(deviceMac, devMac, 18);
+	memcpy(deviceMac, devMac, SIZE_MAC_ASCII);
 #ifdef DEBUG
 	Serial.begin(115200);
 	Serial.println(deviceMac);
@@ -189,7 +189,7 @@ void ArpUtil::set_SrcMac(const char* mac) {
 }
 
 void ArpUtil::set_OpCode(const uint8_t* opcode) {
-	memcpy(packet.data.arp.opcode, opcode, 2);
+	memcpy(packet.data.arp.opcode, opcode, SIZE_WORD);
 }
 
 void ArpUtil::set_SrcIp(const char* ip) {

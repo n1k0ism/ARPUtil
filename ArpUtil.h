@@ -21,8 +21,6 @@
  *      Author: n1k0ism
  */
 
-
-
 #ifndef ARPUTIL_H_
 #define ARPUTIL_H_
 #include "ArpPacket.h"
@@ -31,31 +29,33 @@
 
 #define DEBUG
 
-#define ETH_BUF_SIZE 400
+#define SIZE_ETH_BUF 400
+#define SIZE_BUF 6
+#define SIZE_MAC_ASCII 18	// xx:xx:xx:xx:xx:xx\0
 
 class ArpUtil {
 
 private:
 	ArpPacket packet;
 
-	static uint8_t L2_TYPE_ARP[2];// 0x0806
-	static uint8_t ARP_HW_ETHER[2];// 0x0001
-	static uint8_t ARP_PROTO_IPV4[2];// 0x0800
+	static uint8_t L2_TYPE_ARP[SIZE_WORD]; // 0x0806
+	static uint8_t ARP_HW_ETHER[SIZE_WORD]; // 0x0001
+	static uint8_t ARP_PROTO_IPV4[SIZE_WORD]; // 0x0800
 
 	bool connected = false;
-	char deviceMac[18];
-	uint8_t buffer[6];
+	char deviceMac[SIZE_MAC_ASCII];
+	uint8_t buffer[SIZE_BUF];
 
-	void initPacket();
-	bool parseuint8_ts(const char* str, char delim, uint8_t* uint8_ts);
+	void initPacket();bool parseuint8_ts(const char* str, char delim,
+			uint8_t* uint8_ts);
 	void setMac(const char* mac, uint8_t* field);
 	void setMac(const uint8_t* mac, uint8_t* field);
 	void setIp(const char* ip, uint8_t* field);
 	void setIp(const uint8_t* ip, uint8_t* field);
 
 public:
-	static uint8_t ARP_REQUEST[2];// 0x0001
-	static uint8_t ARP_REPLY[2];// 0x0002
+	static uint8_t ARP_REQUEST[SIZE_WORD]; // 0x0001
+	static uint8_t ARP_REPLY[SIZE_WORD]; // 0x0002
 
 	uint8_t* gwIp;
 	uint8_t* myIp;
@@ -77,6 +77,7 @@ public:
 	 *   \return true on success, false else
 	 */
 	bool connect();
+
 	/*!
 	 *   The connection state
 	 *   \return connection state
