@@ -21,7 +21,6 @@
  *      Author: n1k0ism
  */
 
-#define DEBUG
 #include "ArpUtil.h"
 
 void setup() {
