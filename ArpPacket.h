@@ -31,32 +31,32 @@
 // the arp packet structure
 typedef union {
 	// BEGIN structured data view
-    struct {
-        // BEGIN L2 header
-        struct {
-            uint8_t dstMac[SIZE_ETHER];  // source mac address
-            uint8_t srcMac[SIZE_ETHER];  // destination mac address
-            uint8_t type[2];       		// eg. arp: 0x08 0x06
-        } l2;
-        // END L2 header
-        // BEGIN ARP payload
-        struct {
-        		uint8_t typeHw[2];				// hardware type e.g. ethernet: 0x0001
+	struct {
+        	// BEGIN L2 header
+        	struct {
+            		uint8_t dstMac[SIZE_ETHER];	// source mac address
+            		uint8_t srcMac[SIZE_ETHER];	// destination mac address
+            		uint8_t type[2];		// eg. arp: 0x08 0x06
+        	} l2;
+        	// END L2 header
+        	// BEGIN ARP payload
+        	struct {
+			uint8_t typeHw[2];		// hardware type e.g. ethernet: 0x0001
         		uint8_t typeProto[2];  		// protocol type e.g. ipv4: 0x0800
-            uint8_t sizeHw;     			// hardware address size e.g. eth: 6 bytes
-            uint8_t sizeProto;  			// protocol address size e.g. ipv4: 4 bytes
-            uint8_t opcode[2];  			// arp op code e.g. request: 0x0001,  reply: 0x0002
-            uint8_t srcMac[SIZE_ETHER];  // source mac address
-            uint8_t srcIp[SIZE_IPV4];    // source ip address
-            uint8_t dstMac[SIZE_ETHER];  // destination mac address
-            uint8_t dstIp[SIZE_IPV4];    // destination ip address
-        } arp;
-        // END ARP payload
-    } data;
-    // END structured data view
-    // BEGIN linear data view
-    uint8_t raw[42]; // raw data (42 bytes)
-    // END linear data view
+            		uint8_t sizeHw;     		// hardware address size e.g. eth: 6 bytes
+            		uint8_t sizeProto;  		// protocol address size e.g. ipv4: 4 bytes
+            		uint8_t opcode[2];  		// arp op code e.g. request: 0x0001,  reply: 0x0002
+            		uint8_t srcMac[SIZE_ETHER];	// source mac address
+            		uint8_t srcIp[SIZE_IPV4];	// source ip address
+            		uint8_t dstMac[SIZE_ETHER];	// destination mac address
+            		uint8_t dstIp[SIZE_IPV4];	// destination ip address
+        	} arp;
+        	// END ARP payload
+    	} data;
+    	// END structured data view
+    	// BEGIN linear data view
+    	uint8_t raw[42]; // raw data (42 bytes)
+    	// END linear data view
 } ArpPacket;
 
 
