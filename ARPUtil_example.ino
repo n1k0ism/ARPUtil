@@ -24,35 +24,35 @@
 #include "ArpUtil.h"
 
 void setup() {
-	// set your own mac here this will also be
-	// the default source mac that you can change
-	// later.
-	arputil.begin("0c:ee:07:30:65:ef");
+    // set your own mac here this will also be
+    // the default source mac that you can change
+    // later.
+    arputil.begin("0c:ee:07:30:65:ef");
 
-	// open the Ethernet port...
-	arputil.connect();
+    // open the Ethernet port...
+    arputil.connect();
 
-	// ...and wait for dhcp assignment.
-	while (!arputil.isConnected()) {
-		delay(1000);
-	}
+    // ...and wait for dhcp assignment.
+    while (!arputil.isConnected()) {
+        delay(1000);
+    }
 
-	// reply instead of a request?
-	//arputil.set_OpCode(arputil.ARP_REPLY); // default: ARP_REQUEST
+    // reply instead of a request?
+    //arputil.set_OpCode(arputil.ARP_REPLY); // default: ARP_REQUEST
 
-	// set the source ip to the gateway ip.
-	arputil.set_SrcIp(arputil.gwIp);
-	//arputil.set_SrcMac("aa:bb:cc:11:22:33");
+    // set the source ip to the gateway ip.
+    arputil.set_SrcIp(arputil.gwIp);
+    //arputil.set_SrcMac("aa:bb:cc:11:22:33");
 
-	// specific destination?
-	//arputil.set_DstIp("192.168.0.123"); // default: 255.255.255.255
-	//arputil.set_DstMac("a1:b2:c3:d4:e5:f6"); // default: ff:ff:ff:ff:ff:ff
+    // specific destination?
+    //arputil.set_DstIp("192.168.0.123"); // default: 255.255.255.255
+    //arputil.set_DstMac("a1:b2:c3:d4:e5:f6"); // default: ff:ff:ff:ff:ff:ff
 }
 
 void loop() {
 
-	delay(2000);
+    delay(2000);
 
-	// send your ARP data!
-	arputil.send();
+    // send your ARP data!
+    arputil.send();
 }
